@@ -17,7 +17,6 @@ import java.util.List;
  *
  * @author fcastillo
  */
-
 public class Comment {
 
     private Long id;
@@ -50,6 +49,10 @@ public class Comment {
         this.via = via;
         this.created_at = created_at;
         this.metadata = metadata;
+    }
+
+    public Comment(String body) {
+        this.body = body;
     }
 
     public Long getId() {
@@ -147,6 +150,5 @@ public class Comment {
     public void setMetadata(Object metadata) {
         this.metadata = metadata;
     }
-   
-    
+
 }

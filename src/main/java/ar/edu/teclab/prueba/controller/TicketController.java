@@ -8,6 +8,7 @@ package ar.edu.teclab.prueba.controller;
 import ar.edu.teclab.prueba.config.Credencial;
 import ar.edu.teclab.prueba.dto.Comment;
 import ar.edu.teclab.prueba.dto.Comments;
+import ar.edu.teclab.prueba.dto.Ticket;
 import ar.edu.teclab.prueba.service.TicketService;
 import ar.edu.teclab.prueba.utilidades.CommentsList;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,6 +31,8 @@ import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -50,15 +53,21 @@ public class TicketController {
     @GetMapping("/{ticket_id}/comments")
     public ResponseEntity getComments(@PathVariable("ticket_id") int ticket_id) {
         try {
-            
+
             List<Comment> ticketComments = ticketService.getTicketComments(ticket_id);
-            
+
             return ResponseEntity.status(HttpStatus.OK).body(ticketComments);
-            
+
         } catch (HttpStatusCodeException e) {
             return ResponseEntity.badRequest().body(e.getResponseBodyAsString());
         }
 
+    }
+
+    @PutMapping("/{ticket_id}")
+    public ResponseEntity addComments(@PathVariable int ticket_id, @RequestBody String ticket) {
+        String result = ticketService.addComment(ticket_id, ticket);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
 }
