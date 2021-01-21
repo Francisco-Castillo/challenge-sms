@@ -1,40 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ar.edu.teclab.prueba.service;
 
+//<editor-fold defaultstate="collapsed" desc="imports">
 import ar.edu.teclab.prueba.dto.Comment;
 import ar.edu.teclab.prueba.dto.Comments;
-import ar.edu.teclab.prueba.dto.Ticket;
 import java.util.Base64;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+//</editor-fold>
 
 /**
  *
- * @author fcastillo
+ * @author Francisco Castillo
  */
 @Service
 public class TicketService {
 
+    //<editor-fold defaultstate="collapsed" desc="fields">
     private final static String URI = "https://teclab1593636133.zendesk.com/api/v2/tickets/";
     private final static String PATH = "/comments";
-
+    
     RestTemplate restTemplate = new RestTemplate();
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="getTicketsComments(int ticketId)">
     public List<Comment> getTicketComments(int ticketId) {
         //String authStr = credencial.getUsername().concat(":").concat(credencial.getPassword());
         String authStr = "username:password";
@@ -62,8 +58,9 @@ public class TicketService {
         List<Comment> lstComments = response.getBody().getComments();
 
         return lstComments;
-    }
+    }//</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="addComment(int id, String comment)">
     public String addComment(int id, String comment) {
         String authStr = "username:password";
         String base64Creds = Base64.getEncoder().encodeToString(authStr.getBytes());
@@ -81,6 +78,6 @@ public class TicketService {
         ResponseEntity<String> response = restTemplate.exchange(path, HttpMethod.PUT, request, String.class);
 
         return response.getBody();
-    }
+    }//</editor-fold>
 
 }
