@@ -21,10 +21,9 @@ public class Credencial {
     private final String password;
 
     @Autowired
-    public Credencial(@Value("${username}") String username, @Value("${password}") String password) {
+    public Credencial(@Value("${credencial.username}") String username, @Value("${credencial.password}") String password) {
         this.username = username;
         this.password = password;
-        System.out.println("================== " + password + "================== ");
     }
 
     public String getUsername() {

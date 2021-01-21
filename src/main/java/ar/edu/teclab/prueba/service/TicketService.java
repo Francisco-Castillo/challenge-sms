@@ -1,10 +1,12 @@
 package ar.edu.teclab.prueba.service;
 
 //<editor-fold defaultstate="collapsed" desc="imports">
+import ar.edu.teclab.prueba.config.Credencial;
 import ar.edu.teclab.prueba.dto.Comment;
 import ar.edu.teclab.prueba.dto.Comments;
 import java.util.Base64;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -28,12 +30,14 @@ public class TicketService {
     private final static String PATH = "/comments";
     
     RestTemplate restTemplate = new RestTemplate();
+    
+    @Autowired
+    private Credencial credencial;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="getTicketsComments(int ticketId)">
     public List<Comment> getTicketComments(int ticketId) {
-        //String authStr = credencial.getUsername().concat(":").concat(credencial.getPassword());
-        String authStr = "username:password";
+        String authStr = credencial.getUsername().concat(":").concat(credencial.getPassword());
         String base64Creds = Base64.getEncoder().encodeToString(authStr.getBytes());
 
         // create headers
@@ -62,7 +66,7 @@ public class TicketService {
 
     //<editor-fold defaultstate="collapsed" desc="addComment(int id, String comment)">
     public String addComment(int id, String comment) {
-        String authStr = "username:password";
+         String authStr = credencial.getUsername().concat(":").concat(credencial.getPassword());
         String base64Creds = Base64.getEncoder().encodeToString(authStr.getBytes());
 
         // create headers
