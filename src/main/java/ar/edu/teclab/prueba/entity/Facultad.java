@@ -26,7 +26,7 @@ public class Facultad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @Column(name = "nombre")
     private String nombre;
@@ -37,16 +37,16 @@ public class Facultad {
     public Facultad() {
     }
 
-    public Facultad(Long id, String nombre) {
+    public Facultad(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
